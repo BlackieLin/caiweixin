@@ -216,7 +216,25 @@ function do_post_request($url, $data, $optional_headers = null){
 	 }
 	 return $response;
 }
+//post请求函数2
+function do_post_request2($url, $data, $optional_headers = null){
+	$curl = curl_init();
+	curl_setopt($curl, CURLOPT_HTTPHEADER, array(
+               'Content-Type: application/json',
+               'Content-Length: ' . strlen($data))
+      );
+    curl_setopt($curl, CURLOPT_POST, true);
+    curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($curl, CURLOPT_TIMEOUT, 60);
+    curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+    curl_setopt($curl, CURLOPT_URL, $url);
 
+    $res = curl_exec($curl);
+    curl_close($curl);
+    return $res;
+}
 function http_get($url) {
     $curl = curl_init();
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
